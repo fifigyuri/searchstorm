@@ -1,0 +1,53 @@
+@import "_base.less";
+
+header#sstorm_pageheader {
+  .centered_content;
+  text-align: center;
+  text-decoration: none;
+  font-size: 8pt;
+  font-family: arial;
+  color: #444444;
+  overflow-x: hidden;
+
+  h1 {
+    font-family: arial;
+    font-size: 48px;
+    font-weight: bold;
+    font-style: none;
+    text-align: center;
+    text-decoration: none;
+
+    a {
+      color: #222222;
+      text-decoration: none;
+    }
+    a:visited {
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: none;
+    }
+  }
+
+  nav#sstorm_navbar {
+    ul {
+      display: inline;
+      list-style-type: disc;
+      width: @content_width;
+      margin: 1em auto 1.5em;
+
+      li {
+        float: left;
+        text-align: center;
+        font-weight: normal;
+        font-size: 8pt;
+        font-family: arial;
+        overflow-x: hidden;
+        a {
+          color: black;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

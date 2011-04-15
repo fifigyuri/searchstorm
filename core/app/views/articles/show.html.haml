@@ -1,0 +1,5 @@
+-# coding: utf-8
+- title @article.title[0..30] unless @article.title.nil?
+
+%article#sstorm_article
+  = render :partial => 'article', :locals => {:article => @article}

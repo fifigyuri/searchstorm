@@ -1,0 +1,6 @@
+source :rubygems
+
+gem 'searchstorm_core', :path => '../core'
+gem 'anemone', :git => 'git://github.com/fifigyuri/anemone.git', :branch => 'next'
+gemspec
+

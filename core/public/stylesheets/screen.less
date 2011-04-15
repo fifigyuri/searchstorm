@@ -1,0 +1,137 @@
+@import "_base.less";
+@import "_pageheader.less";
+@import "_pagefooter.less";
+@import "_articles.less";
+@import "_error_notices.less";
+@import "_pagination.less";
+@import "_forms.less";
+@import "_tables.less";
+
+#system-notify {
+  text-align: center;
+  background: #164464;
+  color: white;
+  font-family: Arial, Liberation Sans, DejaVu Sans, sans-serif;
+  font-size: 130%;
+  font-weight: bold;
+  position: fixed;
+  left: 0;
+  letter-spacing: -1px;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+section#sstorm_pagebody {
+  .centered_content(2em, 2em);
+  text-align: center;
+  font-size: 11pt;
+  font-family: arial;
+  font-weight: normal;
+  color: #444444;
+
+  a {
+    color: #222222;
+    text-decoration: none;
+  }
+
+  a:visited {
+    color: #444444;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #444444;
+    text-decoration: underline;
+  }
+
+  i, em {
+    color: #444444;
+    font-style: italic;
+    text-decoration: none;
+  }
+
+  h2, h3 {
+    color: black;
+    font-family: arial;
+    font-size: 12pt;
+    font-weight: normal;
+    font-style: none;
+    text-decoration: none;
+  }
+}
+
+/* line 54, ../../../solrstorm/stylesheets/solrstorm/screen.sass */
+section#sstorm_pagebody #container {
+  width: @content_width;
+  margin: 0 auto;
+  overflow: hidden;
+  *zoom: 1;
+}
+
+section#sstorm_pagebody #content {
+  display: inline;
+  float: left;
+  margin-right: 0;
+  width: @content_width;
+  margin: 0 auto;
+  overflow: hidden;
+  *zoom: 1;
+  margin-top: 1.5em;
+  margin-bottom: 3em;
+  text-align: center;
+  overflow-x: hidden;
+}
+/* line 109, ../../../solrstorm/stylesheets/solrstorm/screen.sass */
+section#sstorm_pagebody #container #listing {
+  display: inline;
+  float: left;
+  margin-right: 0;
+  width: @content_width;
+  margin: 0 auto;
+  overflow: hidden;
+  *zoom: 1;
+  margin-top: 1.5em;
+  margin-bottom: 3em;
+  text-align: left;
+}
+/* line 138, ../../../../Developer/.rvm/gems/ree-1.8.7-2011.02@solrstorm-clients/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html section#sstorm_pagebody #container #listing {
+  overflow-x: hidden;
+}
+
+section#sstorm_pagebody #notice {
+  position: absolute;
+  top: 20px;
+  right: 10px;
+  max-width: 200px;
+  border: 1px solid green;
+  padding: 1em;
+  margin: 1em;
+  margin-bottom: 2em;
+  font: bold smaller sans-serif;
+}
+
+section#sstorm_pagebody .searchsummary {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+/* line 245, ../../../solrstorm/stylesheets/solrstorm/screen.sass */
+section#sstorm_pagebody #mainbar {
+  display: inline;
+  float: left;
+  margin-right: 10px;
+  width: 550px;
+  overflow-x: hidden;
+}
+/* line 248, ../../../solrstorm/stylesheets/solrstorm/screen.sass */
+section#sstorm_pagebody #mainbar p {
+  color: #111111;
+  font-size: 16px;
+  font-family: Georgia, serif;
+  line-height: 22px;
+  text-align: left;
+}
+

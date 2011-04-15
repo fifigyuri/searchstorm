@@ -1,0 +1,8 @@
+-# coding: utf-8
+- if @articles
+  .searchsummary
+    = t :search_summary_articles_from, :articles_from => @articles.offset+1
+    = t :search_summary_articles_to, :articles_to => (@articles.current_page < @articles.total_pages) ? @articles.offset+@articles.per_page : @articles.total_entries
+    = t :search_summary_number_of_articles, :articles_total => @articles.total_entries
+    %br
+    = will_paginate @articles, {:previous_label => t(:pagination_previous_label), :next_label => t(:pagination_next_label)}

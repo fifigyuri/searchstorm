@@ -1,0 +1,4 @@
+-# coding: utf-8
+= form_tag({ :action => 'search' }, :method => 'get', :id => 'sstorm_searchform') do
+  = text_field_tag 'q', params[:q], :size => 50, :autofocus => true, :placeholder => t(:enter_your_search_query)
+  %input{ :type => 'submit', :value => '' }

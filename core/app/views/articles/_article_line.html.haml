@@ -1,0 +1,11 @@
+-# coding: utf-8
+- article_hit, article = article_line, article_line.result
+- if article
+  %article.sstorm_article
+    %header.sstorm_article_header
+      %h1.sstorm_article_title= link_to_unless_current(highlight_formatted(article_hit, :title) || article.title.html_safe, article_path(article) )
+      -# %p.sstorm_article_source= article.url ? link_to(sourcename, article.url) : sourcename
+    %p.sstorm_article_summary
+      = highlight_formatted(article_hit, :summary)|| article.summary.html_safe
+    %footer
+      -# %p.sstorm_article_pubdate= I18n.localize article.published_at unless article.published_at.nil?

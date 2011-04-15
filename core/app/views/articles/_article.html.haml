@@ -1,0 +1,20 @@
+-# coding: utf-8
+-# - sourcename = !article.infosource.nil? ? article.infosource.sourcename : t(:unknown_infosource)
+- article_hit ||= nil
+%article.sstorm_article
+  %header
+    %h1
+      - article_title = highlight_formatted(article_hit, :title) || article.title
+      = link_to_unless_current(article_title, article_path(article))
+    %p.sstorm_article_source
+      -# - if article.url
+      -#   = link_to sourcename, article.url
+      -# - else
+      -#   = sourcename
+  %p.sstorm_article_summary
+    = highlight_formatted(article_hit, :summary) || article.summary
+  %p.sstorm_article_body
+    = highlight_formatted(article_hit, :body) || article.body
+  %footer
+    %p.sstorm_article_pubdate
+      = l article.published_at unless article.published_at.nil?

@@ -1,0 +1,4 @@
+-# coding: utf-8
+- unless (Rails.env == 'test') or (Rails.env == 'production')
+  #system-notify
+    = Rails.env.upcase

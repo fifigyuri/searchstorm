@@ -1,0 +1,11 @@
+-# coding: utf-8
+- title t(:article_search_view_title)
+= render :partial => "search_form"
+- if params[:q]
+  %section#sstorm_articlelist
+    - if @articles and not @articles.empty?
+      %header#sstorm_articlelist_header= result_summary = render :partial => "articles/result_summary"
+      = render :partial => 'articles/article_line', :collection => @articles
+      %footer#sstorm_articlelist_footer= result_summary
+    - else
+      = t :did_not_find_any_results_for_query, :query => params[:q]

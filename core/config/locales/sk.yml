@@ -1,0 +1,186 @@
+sk:
+  date:
+    formats:
+      # Use the strftime parameters for formats.
+      # When no format has been given, it uses default.
+      # You can provide other formats here if you like!
+      default: "%Y-%m-%d"
+      short: "%b %d"
+      long: "%B %d, %Y"
+  activerecord:
+    models:
+      user: 'používateľ'
+      article: 'článok'
+      infosource: 'informačný zdroj'
+      logged_exception: 'zachytená výnimka'
+      role: 'rola'
+      article_status: 'status článku'
+      search_keyword: 'kľúčové slovo'
+    attributes:
+      user:
+        username: 'používateľské meno'
+        email: 'email'
+        password: 'heslo'
+        password_confirmation: 'potvrdenie hesla'
+      article:
+        author: 'autor'
+        title: 'titul'
+        summary: 'sumár'
+        body: 'obsah'
+        url: 'referencia'
+        published_at: 'dátum publikovania'
+      infosource:
+        sourcename: 'názov zdroja'
+        sourcefeed: 'feed'
+      logged_exception:
+        exception_class: 'trieda výnimky'
+        controller_name: 'názov kontrolera'
+        action_name: 'názov akcie'
+        message: 'správa'
+        backtrace: 'backtrace'
+        environment: 'prostredie'
+        request:  'požiadavka'
+      role:
+        name: 'názov'
+        authorizable_type: 'typ autorizácie'
+        authorizable_id: 'id autorizácie'
+      article_status:
+        status: 'status'
+    errors:
+      messages:
+        record_invalid: 'nesprávny záznam'
+
+  #controllers
+  access_denied_flash: 'Prístup zamietnutý'
+  login_please_flash: 'Prihláste sa'
+
+  infosource_fetched_flash: 'Informačný zdroj bol obnovený. %{items_fetched} článkov stiahnutých.'
+  nothing_was_fetched_flash: 'Nebol stiahnutý žiadny článok.'
+  infosource_creation_success_flash: 'Informačný zdroj bol úspešne vytvorený.'
+  infosource_update_success_flash: 'Informačný zdroj bol úspešne zmenený.'
+  enter_your_search_query: 'dotaz na vyhľadávane'
+
+  news_were_posted_flash: 'Boli Vám zaslané najnovšie správy.'
+  no_news_were_posted_flash: 'Nenašli sa pre Vás žiadne nové správy.'
+  keyword_does_not_exist_flash: 'Neexistujúce kľúčové slovo'
+  keyword_creation_success_flash: 'Kľúčové slovo úspešne vytvorené.'
+  keyword_update_denied_flash: 'Zmena klúčového slova zamietnutá'
+  keyword_update_success_flash: 'Kľúčové slovo úspešne zmenené.'
+  keyword_destroy_success_flash: 'Kľúčové slovo úspešne zrušené.'
+
+  login_successful_flash: 'Prihlásenie úspešné.'
+  logout_successful_flash: 'Odhlásenie úspešné.'
+
+  registration_successful_flash: 'Registrácia úspešná.'
+  profil_change_success_flash: 'Profil bol úspešne zmenený.'
+
+  #models
+  article_status_sent_word: 'poslané'
+  article_status_viewed_word: 'zobrazené'
+  article_status_for_approval_word: 'na kontrolu'
+  article_status_accepted_word: 'schválené'
+  article_status_rejected_word: 'zamietnuté'
+  article_status_accept: 'Schvaľujem'
+  article_status_reject: 'Zamietam'
+  article_status_approval_list_action_label: 'Kontrola článkov'
+  article_status_no_activity_for_approval: 'Žiadna schvalovacia aktivita alebo článok čakajúci na schálenie.'
+
+  given_username_is_not_correct_validation_error: 'môže obsahovať len malé písmená, číslice a podčiarknutia "_"'
+  given_email_is_not_correct_validation_error: 'nie je korektná emailová adresa'
+  user_not_set_validation_error: 'Chýba používateľ.'
+  article_not_set_validation_error: 'Chýba článok.'
+  status_not_set_validation_error: 'Chýba status.'
+  status_user_article_not_unique_validation_error: 'Pre trojicu článok, status a používateľ môže existovať len jeden záznam.'
+
+  #views
+  unknown_infosource: 'neznámy zdroj'
+  did_not_find_any_results_for_query: 'Nenašli sa žiadne výsledky na dotaz "%{query}"'
+  search_summary_articles_from: 'Články od %{articles_from}'
+  search_summary_articles_to: 'do %{articles_to}'
+  search_summary_number_of_articles: 'z celkového počtu %{articles_total}.'
+  pagination_previous_label: 'Predchádzajúce'
+  pagination_next_label: 'Nasledujúce'
+  search_articles_button_label: 'Hľadaj v článkoch'
+  article_search_view_title: 'Vyhladávanie'
+
+  article_statuses_view_title: 'Udalosti'
+  article_status_line: '%{article_status} dňa %{status_update_date}:'
+  article_status_stats_date_from: 'odo dňa'
+  article_status_stats_date_to: 'do dňa'
+  article_status_generate_stats: 'Generovanie výsledkov'
+  article_status_stats_accepted_total: 'Celkový počet prijatých článkov: %{accepted_total}'
+  article_status_stats_rejected_total: 'Celkový počet odmietnutých článkov: %{rejected_total}'
+  article_status_stats_table_caption: 'Tabuľka počtov akceptovaných a odmietnutých článkov'
+  article_status_stats_by_usernames_table_caption: 'Tabuľka počtov akceptovaných a odmietnutých článkov podľa používateľov'
+  article_status_stats_by_keywords_table_caption: 'Tabuľka počtov akceptovaných a odmietnutých článkov podľa kľúčových slov'
+  article_status_stats_accepted: 'prijaté'
+  article_status_stats_rejected: 'odmietnuté'
+  article_status_stats_scrapped: 'spracované'
+
+  infosources_edit_view_title: 'Zmena informačného zdroja'
+  infosources_sourcename_form_field_label: 'Názov'
+  infosources_url_form_field_label: 'URL na feed'
+  infosources_list_view_title: 'Zoznam informačných zdrojov'
+  infosources_new_view_title: 'Nový informačný zdroj'
+  infosources_show_view_title: 'Zobraz detaily informačného zdroja'
+  infosources_unknown_source_text: 'neznámy zdroj'
+
+  infosources_change_action_label: 'Zmeň'
+  infosources_destroy_action_label: 'Zruš'
+  infosources_view_action_label: 'Zobraz'
+  infosources_back_to_the_list_action_label: 'Späť k zoznamu'
+  infosources_new_action_label: 'Nový informačný zdroj'
+  infosources_create_action_label: 'Vytvor'
+  infosources_fetch_action_label: 'Obnov zdroj'
+  infosources_test_scrapper_for_page_label: 'Vyrež obsah stránky'
+  infosources_empty_web_page_content_text: 'Prázdny obsah'
+
+  search_keywords_submit_action_label: 'Potvrdenie'
+  search_keywords_change_view_title: 'Zmena kľúčového slova'
+  search_keywords_index_view_title: 'Kľúčové slová'
+  search_keywords_show_view_title: 'Klúčové slovo'
+  search_keywords_change_action_label: 'Zmeň'
+  search_keywords_destroy_action_label: 'Zruš'
+  search_keywords_back_to_the_list_action_label: 'Späť k zoznamu'
+  search_keywords_view_action_label: 'Zobraz'
+  search_keywords_new_search_keyword_text: 'Nové kľúčové slovo:'
+  search_keywords_my_search_keywords: 'Moje kľúčové slová (zoznam dotazov použitých pri vyhľdávaní):'
+  search_keywords_new_view_title: 'Nové kľúčové slovo'
+  search_keywords_my_news_view_title: 'Moje správy'
+  search_keywords_send_to_email_action_label: 'Pošli na email' 
+  search_keywords_query_text: 'Dotaz:'
+  search_keywords_article_matches_queries: 'Spĺňajúce dotazy: "%{queries}"'
+
+  this_page_shows_news_not_older_than_xy_days_text: "Na tejto stránke sú zobrazené správy nie staršie než %{days} dní."
+  for_a_keyword_only_xy_results_are_listed: 'Pre jedno klúčové slovo je zobrazených najviac %{results} správ.'
+  news_which_were_viewed_through_the_web_and_were_of_your_interest_are_not_listed: 'Správy, o ktorých Vám bol zaslaný email a ktoré ste zobrazili, nie sú uvedené v zozname.'
+
+  user_sessions_try_to_login_again: 'Skúste sa prihlásiť znova'
+  user_sessions_check_your_keyboard: 'Skontrolujte CAPS-LOCK a schému klávesnice'
+  user_sessions_login_view_title: 'Prihlásenie'
+  user_sessions_username_form_field_label: 'Login:'
+  user_sessions_password_form_field_label: 'Heslo:'
+  user_sessions_login_action_label: "Prihlásiť sa"
+
+  users_username_form_field_label: 'Používateľské meno'
+  users_email_form_field_label: 'Email'
+  users_password_from_field_label: 'Heslo'
+  users_password_confirmation_label: 'Potvrdenie hesla'
+  users_submit_form_action_label: 'Potvrdenie'
+  users_change_profile_view_title: 'Zmena profilu'
+  users_registration_view_title: 'Registrácia'
+  users_destroy_success_flash: 'Používateľ odstránený'
+  users_destroy_action_label: 'Zrušenie používateľa'
+
+  root_page_action_label: 'Hlavná stránka'
+  my_profile_action_label: 'Môj účet'
+  agent_action_label: 'Agent'
+  my_news_action_label: 'Moje správy'
+  users_action_label: 'Používatelia'
+  inforsources_list_action_label: 'Informačné zdroje'
+  errors_and_exceptions_action_label: 'Chyby a výnimky'
+  logout_user_action_label: 'Odhlásiť sa (%{username})'
+  registration_action_label: 'Registrácia'
+  login_action_label: 'Prihlásenie'
+
+  are_you_sure_confirmation: 'Ste si istý?'
