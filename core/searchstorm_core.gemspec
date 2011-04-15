@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.version = "0.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["György Frivolt"]
+  s.authors = ["Gyorgy Frivolt"]
   s.date = %q{2011-04-15}
   s.description = %q{Have a search motor built on the top of Solr, a highly customizable, scalable and well performing search engine. You are only few steps away from creating your own search motor.}
   s.email = %q{gyorgy.frivolt@gmail.com}

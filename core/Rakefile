@@ -48,7 +48,7 @@ begin
     gem.description = "Have a search motor built on the top of Solr, a highly customizable, scalable and well performing search engine. You are only few steps away from creating your own search motor."
     gem.email = "gyorgy.frivolt@gmail.com"
     gem.homepage = "http://github.com/fifigyuri/searchstorm"
-    gem.authors = ["György Frivolt"]
+    gem.authors = ["Gyorgy Frivolt"]
 
     gem.add_dependency 'rails', '~>3.0.5'
     gem.add_dependency 'haml'
