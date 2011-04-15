@@ -1,8 +1,6 @@
 # encoding: utf-8
-
 require 'sunspot'
 require 'sunspot/rails'
-require 'ruby-debug'
 
 class Article < ActiveRecord::Base # include Sunspot::Rails::Searchable
   cattr_reader :per_page
