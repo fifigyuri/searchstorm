@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Gyorgy Frivolt"]
-  s.date = %q{2011-04-15}
+  s.date = %q{2011-04-17}
   s.description = %q{Have a search motor built on the top of Solr, a highly customizable, scalable and well performing search engine. You are only few steps away from creating your own search motor.}
   s.email = %q{gyorgy.frivolt@gmail.com}
   s.files = [
@@ -38,8 +38,6 @@ Gem::Specification.new do |s|
     "config/locales/sk.yml",
     "config/routes.rb",
     "db/migrate/20090812102300_create_articles.rb",
-    "lib/searchstorm/preferences.rb",
-    "lib/searchstorm/rails.rb",
     "lib/searchstorm_core.rb",
     "lib/tasks/app.rake",
     "lib/tasks/searchstorm.rake",
@@ -129,7 +127,6 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<will_paginate>, [">= 0"])
       s.add_runtime_dependency(%q<sunspot>, ["~> 1.2.1"])
       s.add_runtime_dependency(%q<sunspot_rails>, ["~> 1.2.1"])
-      s.add_runtime_dependency(%q<searchlogic>, [">= 0"])
       s.add_development_dependency(%q<ruby-debug19>, [">= 0"])
       s.add_development_dependency(%q<shoulda>, [">= 0"])
       s.add_development_dependency(%q<ffaker>, [">= 0"])
@@ -141,7 +138,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<will_paginate>, [">= 0"])
       s.add_dependency(%q<sunspot>, ["~> 1.2.1"])
       s.add_dependency(%q<sunspot_rails>, ["~> 1.2.1"])
-      s.add_dependency(%q<searchlogic>, [">= 0"])
       s.add_dependency(%q<ruby-debug19>, [">= 0"])
       s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<ffaker>, [">= 0"])
@@ -154,7 +150,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<will_paginate>, [">= 0"])
     s.add_dependency(%q<sunspot>, ["~> 1.2.1"])
     s.add_dependency(%q<sunspot_rails>, ["~> 1.2.1"])
-    s.add_dependency(%q<searchlogic>, [">= 0"])
     s.add_dependency(%q<ruby-debug19>, [">= 0"])
     s.add_dependency(%q<shoulda>, [">= 0"])
     s.add_dependency(%q<ffaker>, [">= 0"])

@@ -1,5 +1,5 @@
 
-module SearchStorm
+module Searchstorm
 
   def self.version
     '0.1.2'

@@ -55,7 +55,6 @@ begin
     gem.add_dependency 'will_paginate'
     gem.add_dependency 'sunspot', '~>1.2.1'
     gem.add_dependency 'sunspot_rails', '~>1.2.1'
-    gem.add_dependency 'searchlogic'
 
     gem.add_development_dependency "ruby-debug19"
     gem.add_development_dependency "shoulda"
