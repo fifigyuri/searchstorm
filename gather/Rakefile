@@ -47,6 +47,7 @@ begin
     gem.authors = ["Gyorgy Frivolt"]
 
     gem.add_dependency 'searchstorm_core', '~>0.1.2'
+    gem.add_dependency 'rails', '~> 3.0.5'
     # gem.add_dependency 'scrapi', '~>1.2.0'
     # gem.add_dependency 'loofah', '~>1.0.0'
     gem.add_dependency 'nokogiri', '~>1.4.1'

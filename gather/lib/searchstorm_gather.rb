@@ -1,3 +1,25 @@
 #lib initialization code
 
-require 'searchstorm_gather/scrappers'
+require 'searchstorm_gather/crawler'
+require 'rails'
+
+module Searchstorm
+
+  def self.version
+    '0.0.6'
+  end
+
+  def self.base_directory
+    File.expand_path(File.join(File.dirname(__FILE__), '..'))
+  end
+
+  class Engine < Rails::Engine
+    initializer "scrappers" do |app|
+      scrappers_dir = "#{Rails.root}/config/scrappers"
+      Dir.entries(scrappers_dir).select { |f| f =~ /^.*\.rb$/}.each do |scrapper|
+        load "#{scrappers_dir}/#{scrapper}"
+      end
+    end
+  end
+end
+
