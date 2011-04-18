@@ -1,7 +1,7 @@
 
 require 'anemone'
 
-module Searchstorm
+module SearchstormGather
 
   class Gather
     class << self

@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Gyorgy Frivolt"]
-  s.date = %q{2011-04-17}
+  s.date = %q{2011-04-19}
   s.description = %q{}
   s.email = %q{gyorgy.frivolt@gmail.com}
   s.files = [
@@ -20,12 +20,12 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
-    "init.rb",
-    "install.rb",
     "lib/searchstorm_gather.rb",
+    "lib/searchstorm_gather/crawler.rb",
     "lib/searchstorm_gather/tasks.rb",
     "lib/searchstorm_gather/tasks/gather.rake",
     "searchstorm_gather.gemspec",
+    "spec/searchstorm_gather/crawler_spec.rb",
     "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/fifigyuri/searchstorm}

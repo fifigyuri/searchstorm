@@ -1,0 +1,19 @@
+staging:
+  solr:
+    hostname: localhost
+    port: 8983
+
+production:
+  solr:
+    hostname: localhost
+    port: 8983
+
+development:
+  solr:
+    hostname: localhost
+    port: 8983
+
+test:
+  solr:
+    hostname: localhost
+    port: 8983

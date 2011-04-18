@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'definition of scrapping rule' do
 
-  subject { Searchstorm::Gather }
+  subject { SearchstormGather::Gather }
 
   it 'holds a crawler instance' do
     subject.url_seed = 'seedsite.com'

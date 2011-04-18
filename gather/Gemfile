@@ -1,6 +1,27 @@
 source :rubygems
 
-gem 'searchstorm_core', :path => '../core'
-gem 'anemone', :git => 'git://github.com/fifigyuri/anemone.git', :branch => 'next'
-gemspec
+gem 'rails', '~>3.0.5'
+gem 'sqlite3-ruby', :require => 'sqlite3', :groups => ['test', 'development']
 
+gem 'haml'
+gem 'authlogic'
+gem 'will_paginate'
+gem 'sunspot'
+gem 'sunspot_rails'
+gem 'nokogiri'
+gem 'feedzirra'
+gem 'mysql'
+gem 'loofah'
+
+gem 'ruby-debug19', :group =>:development
+
+group :test do
+  gem 'minitest'
+  gem 'machinist'
+  gem 'shoulda', :require => 'shoulda'
+  gem 'mocha'
+  gem 'ffaker'
+  gem 'webrat'
+end
+gem 'searchstorm_core', :path => '/Users/fifi/repos/searchstorm/gather/../core'
+gem 'searchstorm_gather', :path => '/Users/fifi/repos/searchstorm/gather/../gather'

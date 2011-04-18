@@ -23,4 +23,3 @@ group :test do
   gem 'ffaker'
   gem 'webrat'
 end
-gem 'searchstorm_core', :path => '/Users/fifi/repos/searchstorm/core/../core'

@@ -3,7 +3,7 @@
 require 'searchstorm_gather/crawler'
 require 'rails'
 
-module Searchstorm
+module SearchstormGather
 
   def self.version
     '0.0.6'
@@ -18,7 +18,7 @@ module Searchstorm
       scrappers_dir = "#{Rails.root}/config/scrappers"
       Dir.entries(scrappers_dir).select { |f| f =~ /^.*\.rb$/}.each do |scrapper|
         load "#{scrappers_dir}/#{scrapper}"
-      end
+      end if Dir.exists?(scrappers_dir)
     end
   end
 end

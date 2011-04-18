@@ -1,3 +1,5 @@
+# coding: utf-8
+
 require 'rubygems'
 require 'rake'
 require 'rake/testtask'
@@ -12,6 +14,34 @@ end
 
 desc 'Default: run unit tests.'
 task :default => :test
+
+desc "Regenerates a rails 3 app for testing"
+task :test_app do
+  require '../lib/generators/searchstorm/test_app_generator'
+  class GatherTestAppGenerator < Searchstorm::Generators::TestAppGenerator
+
+    def install_gems
+      inside "test_app" do
+        run 'rake searchstorm_core:install'
+        run 'rake searchstorm_gather:install'
+      end
+    end
+
+    def migrate_db
+      run_migrations
+    end
+
+    protected
+    def full_path_for_local_gems
+      <<-gems
+gem 'searchstorm_core', :path => \'#{File.join(File.dirname(__FILE__), "..", "core")}\'
+gem 'searchstorm_gather', :path => \'#{File.join(File.dirname(__FILE__), "..", "gather")}\'
+      gems
+    end
+
+  end
+  GatherTestAppGenerator.start
+end
 
 desc 'Generate documentation for the searchstorm_gather gem.'
 Rake::RDocTask.new(:rdoc) do |rdoc|

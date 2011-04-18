@@ -23,7 +23,7 @@ rdoc
 vendor/cache
 Gemfile.lock
 
-# */test/test_app
+test_app
 */test/*.log
 */test/*.sqlite3.db
 

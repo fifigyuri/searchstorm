@@ -1,5 +1,6 @@
+require 'searchstorm/file_utilz'
 
-module Searchstorm
+module SearchstormCore
 
   def self.version
     '0.1.2'

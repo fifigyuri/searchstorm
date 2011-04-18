@@ -5,8 +5,6 @@ require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
 
-# require "#{File.join(File.dirname(__FILE__), 'lib', 'solrstorm', 'tasks')}"
-
 desc 'Test the searchstorm_core gem.'
 Rake::TestTask.new(:test) do |test|
   test.libs << 'lib' << 'test'
@@ -16,6 +14,32 @@ end
 
 desc 'Default: run unit tests.'
 task :default => :test
+
+desc "Regenerates a rails 3 app for testing"
+task :test_app do
+  require '../lib/generators/searchstorm/test_app_generator'
+  class CoreTestAppGenerator < Searchstorm::Generators::TestAppGenerator
+
+    def install_gems
+      inside "test_app" do
+        run 'rake searchstorm_core:install'
+      end
+    end
+
+    def migrate_db
+      run_migrations
+    end
+
+    protected
+    def full_path_for_local_gems
+      <<-gems
+gem 'searchstorm_core', :path => \'#{File.join(File.dirname(__FILE__), "..", "core")}\'
+      gems
+    end
+
+  end
+  CoreTestAppGenerator.start
+end
 
 desc 'Generate documentation for the searchstorm_core gem.'
 Rake::RDocTask.new(:rdoc) do |rdoc|
