@@ -1,6 +1,6 @@
 #lib initialization code
 
-require 'searchstorm_gather/crawler'
+require 'searchstorm_gather/scrapping'
 require 'rails'
 
 module SearchstormGather
