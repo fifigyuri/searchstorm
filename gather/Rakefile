@@ -65,31 +65,3 @@ rescue LoadError
     abort "RCov is not available. In order to run rcov, you must: sudo gem install spicycode-rcov"
   end
 end
-
-begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |gem|
-    gem.name = "searchstorm_gather"
-    gem.summary = "Crawler extension for the searchstorm search-engine front-end"
-    gem.description = ""
-    gem.email = "gyorgy.frivolt@gmail.com"
-    gem.homepage = "http://github.com/fifigyuri/searchstorm"
-    gem.authors = ["Gyorgy Frivolt"]
-
-    gem.add_dependency 'searchstorm_core', '~>0.1.2'
-    gem.add_dependency 'rails', '~> 3.0.5'
-    # gem.add_dependency 'scrapi', '~>1.2.0'
-    # gem.add_dependency 'loofah', '~>1.0.0'
-    gem.add_dependency 'nokogiri', '~>1.4.1'
-    # gem.add_dependency 'htmlentities', '~>4.2.0'
-    gem.add_dependency 'anemone', '~>0.5.0'
-    gem.add_dependency 'mongo', '~>1.2.0'
-    gem.add_development_dependency "rspec", '~> 2.5.0'
-    gem.add_development_dependency "thoughtbot-shoulda", "~> 2.11.1"
-    gem.add_development_dependency "ruby-debug19"
-  end
-  Jeweler::GemcutterTasks.new
-rescue LoadError
-  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
-end
-

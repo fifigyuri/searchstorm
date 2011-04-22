@@ -1,12 +1,12 @@
-require 'rspec'
-require 'shoulda'
-require 'ruby-debug'
 
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-$LOAD_PATH.unshift(File.dirname(__FILE__))
+ENV["RAILS_ENV"] ||= 'test'
+require File.expand_path("../test_app/config/environment", __FILE__)
+require 'rspec/rails'
 
-require 'searchstorm_gather'
+# Requires supporting files with custom matchers and macros, etc,
+# in ./support/ and its subdirectories.
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
-Rspec.configure do |c|
+RSpec.configure do |c|
   c.mock_with :rspec
 end
