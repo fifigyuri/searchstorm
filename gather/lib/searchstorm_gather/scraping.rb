@@ -5,7 +5,7 @@ require 'active_support/core_ext/module/delegation'
 
 module SearchstormGather
 
-  class Scrapping
+  class Scraping
     delegate :on_pages_like, :do_page_blocks, :to => :crawler
 
     attr_accessor :crawler, :url_seed
@@ -28,6 +28,12 @@ module SearchstormGather
       return nil unless key
       return @scrapping_products[key] = [] unless @scrapping_products[key]
       @scrapping_products[key]
+    end
+
+    def gather_url(url, &condition)
+      page = Anemone::Page.new(url)
+      do_page_blocks(page)
+      products_for(page).select &condition
     end
   end
 end

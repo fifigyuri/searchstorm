@@ -1,4 +1,4 @@
 
 Rails.application.routes.draw do
-  get 'articles/scrap'
+  get 'articles/scrape'
 end

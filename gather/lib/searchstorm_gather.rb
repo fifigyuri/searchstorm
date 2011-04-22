@@ -1,7 +1,7 @@
 #lib initialization code
 
 require 'searchstorm_core'
-require 'searchstorm_gather/scrapping'
+require 'searchstorm_gather/scraping'
 require 'rails'
 
 module SearchstormGather

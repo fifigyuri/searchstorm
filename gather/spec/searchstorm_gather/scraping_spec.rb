@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SearchstormGather::Scrapping do
+describe SearchstormGather::Scraping do
 
   it 'creates crawler instance only when url seed is defined' do
     subject.crawler.should be_nil
@@ -39,5 +39,12 @@ describe SearchstormGather::Scrapping do
       subject.do_page_blocks(matching_page)
       subject.products_for(matching_page).should == ['product']
     end
+  end
+
+  it 'collects products when scrapes page' do
+    scraped_object = 'scraped product'
+    subject.should_receive(:do_page_blocks)
+    subject.should_receive(:products_for).and_return(['should be filtered out', scraped_object])
+    subject.gather_url('example.com') { |prod| prod =~ /product/ }.should == [scraped_object]
   end
 end
