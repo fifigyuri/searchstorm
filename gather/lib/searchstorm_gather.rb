@@ -16,6 +16,11 @@ module SearchstormGather
 
   class Engine < Rails::Engine
     initializer "scrappers" do |app|
+      Rails.application.class.class_eval do 
+        attr_accessor :scraping
+      end
+      Rails.application.scraping = SearchstormGather::Scraping.new
+
       scrappers_dir = "#{Rails.root}/config/scrappers"
       Dir.entries(scrappers_dir).select { |f| f =~ /^.*\.rb$/}.each do |scrapper|
         load "#{scrappers_dir}/#{scrapper}"

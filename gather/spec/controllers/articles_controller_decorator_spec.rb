@@ -3,12 +3,11 @@ require 'spec_helper'
 describe ArticlesController do
 
   it 'renders scrapped page' do
-    pending
-    SearchstormGather::Scraping.should_receive(:do_page_blocks)
-    SearchstormGather::Scraping.should_receive(:products_for).and_return([Object.new]) #[Factory.create(:article)])
+    Sunspot::Indexer.stub!(:add_documents)
+    Rails.application.scraping.should_receive(:gather_url).with('http://example.com').and_return([Factory.build(:article)])
     get :scrape, :page => 'http://example.com'
     response.should render_template :scrap
-    # response.body.should contain 'zazaaaaaa!!!'
+    # response.body.should == 'zazaaaaaa!!!'
   end
 
 end

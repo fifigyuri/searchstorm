@@ -2,7 +2,8 @@
 ArticlesController.class_eval do
 
   def scrape
-    SearchstormGather::Scraping.do_page_blocks(6)
-    SearchstormGather::Scraping.products_for(6)
+    @articles = Rails.application.scraping.gather_url params[:page] do |product|
+      product.instance_of?(Article)
+    end
   end
 end
