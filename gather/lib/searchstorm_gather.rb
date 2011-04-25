@@ -21,7 +21,7 @@ module SearchstormGather
       end
       Rails.application.scraping = SearchstormGather::Scraping.new
 
-      scrappers_dir = "#{Rails.root}/config/scrappers"
+      scrappers_dir = "#{Rails.root}/config/scrapers"
       Dir.entries(scrappers_dir).select { |f| f =~ /^.*\.rb$/}.each do |scrapper|
         load "#{scrappers_dir}/#{scrapper}"
       end if Dir.exists?(scrappers_dir)
