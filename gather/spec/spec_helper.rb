@@ -10,6 +10,8 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 # Load Factories:
 Dir[File.join(File.dirname(__FILE__), "factories/**/*.rb")].each {|f| require f}
 
+Rails.application.scraping.url_seed = 'http://example.com'
+
 RSpec.configure do |c|
   c.mock_with :rspec
 end
