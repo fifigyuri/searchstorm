@@ -2,6 +2,7 @@
 require 'anemone'
 require 'ref'
 require 'active_support/core_ext/module/delegation'
+require 'open-uri'
 
 module SearchstormGather
 
@@ -31,7 +32,7 @@ module SearchstormGather
     end
 
     def gather_url(url, &condition)
-      page = Anemone::Page.new(url)
+      page = Anemone::Page.new(url, :body => open(url).read)
       do_page_blocks(page)
       products_for(page).select &condition
     end

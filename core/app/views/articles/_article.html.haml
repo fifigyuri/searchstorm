@@ -5,7 +5,7 @@
   %header
     %h1
       - article_title = highlight_formatted(article_hit, :title) || article.title
-      = link_to_unless_current(article_title, article_path(article))
+      = article.id ? link_to_unless_current(article_title, article_path(article)) : article_title
     %p.sstorm_article_source
       -# - if article.url
       -#   = link_to sourcename, article.url

@@ -45,6 +45,13 @@ describe SearchstormGather::Scraping do
     scraped_object = 'scraped product'
     subject.should_receive(:do_page_blocks)
     subject.should_receive(:products_for).and_return(['should be filtered out', scraped_object])
-    subject.gather_url('example.com') { |prod| prod =~ /product/ }.should == [scraped_object]
+    page_body = <<PAGE
+<html>
+  <head><title>nice page to scrape</title></head>
+  <body>with a cute content</body>
+</html>
+PAGE
+    subject.should_receive(:open).with('http://justnews.com').and_return(StringIO.new(page_body))
+    subject.gather_url('http://justnews.com') { |prod| prod =~ /product/ }.should == [scraped_object]
   end
 end

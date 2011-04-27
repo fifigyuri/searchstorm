@@ -15,6 +15,12 @@ module SearchstormGather
   end
 
   class Engine < Rails::Engine
+    initializer "load decorations" do |app|
+      Dir.glob(File.join(File.dirname(__FILE__), "../app/**/*_decorator*.rb")) do |c|
+        Rails.env.production? ? require(c) : load(c)
+      end
+    end
+
     initializer "scrappers" do |app|
       Rails.application.class.class_eval do 
         attr_accessor :scraping
