@@ -4,7 +4,7 @@
 %article.sstorm_article
   %header
     %h1
-      - article_title = highlight_formatted(article_hit, :title) || article.title
+      - article_title = highlight_formatted(article_hit, :title) || article.title.html_safe
       = article.id ? link_to_unless_current(article_title, article_path(article)) : article_title
     %p.sstorm_article_source
       -# - if article.url
@@ -12,9 +12,9 @@
       -# - else
       -#   = sourcename
   %p.sstorm_article_summary
-    = highlight_formatted(article_hit, :summary) || article.summary
+    = highlight_formatted(article_hit, :summary) || article.summary.html_safe
   %p.sstorm_article_body
-    = highlight_formatted(article_hit, :body) || article.body
+    = highlight_formatted(article_hit, :body) || article.body.html_safe
   %footer
     %p.sstorm_article_pubdate
       = l article.published_at unless article.published_at.nil?
