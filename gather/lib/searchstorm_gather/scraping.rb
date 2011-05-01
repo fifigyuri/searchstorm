@@ -31,13 +31,18 @@ module SearchstormGather
       @scrapping_products[key]
     end
 
+    def process_product(product)
+      fail
+      products_for(page) << article
+    end
+
     def gather_url(url, &condition)
       page = Anemone::Page.new(url, :body => open(url).read)
       do_page_blocks(page)
       products_for(page).select &condition
     end
 
-    def register_scraper(url_pattern, scraper_class)
+    def register_scraper(url_pattern, scraper_class, &product_processor)
       crawler.on_pages_like(url_pattern) do |page|
         if page.url && (page.url.to_s !~ /%/)
           link_s = page.url.to_s
@@ -49,7 +54,11 @@ module SearchstormGather
 
             article = Article.find_by_url(page.url) || Article.new
             article.attributes = article_data
-            products_for(page) << article
+            if product_processor
+              product_processor.yield article
+            else
+              process_product(article)
+            end
           end
         end
       end

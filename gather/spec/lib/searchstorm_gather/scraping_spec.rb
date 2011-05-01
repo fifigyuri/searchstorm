@@ -42,15 +42,33 @@ describe SearchstormGather::Scraping do
     end
 
     describe 'scraper registration' do
-      it 'registers new scrapers' do
-        article_scrape_mock = mock('article data')
-        article_attrs = {:title => Faker::Lorem.word, :summary => Faker::Lorem.paragraph, :body => Faker::Lorem.paragraph,
-                         :author => Faker::Name.name, :published_at => Date.today}
-        article_attrs.each_pair { |attr, value| article_scrape_mock.should_receive(attr).and_return(value) }
-        scraper_mock = mock('scraper')
-        scraper_mock.should_receive(:scrape).and_return(article_scrape_mock)
-        subject.register_scraper(%r{http://www\.example\.com/foo/.*}, scraper_mock)
-        subject.do_page_blocks(matching_page)
+      context 'with scraped article' do
+        before :each do
+          @article_scrape_mock = mock('article data')
+          article_attrs = {:title => Faker::Lorem.word, :summary => Faker::Lorem.paragraph, :body => Faker::Lorem.paragraph,
+                           :author => Faker::Name.name, :published_at => Date.today}
+          article_attrs.each_pair { |attr, value| @article_scrape_mock.should_receive(attr).and_return(value) }
+          @scraper_mock = mock('scraper')
+          @scraper_mock.should_receive(:scrape).and_return(@article_scrape_mock)
+        end
+
+        it 'registers new scrapers' do
+          subject.register_scraper(%r{http://www\.example\.com/foo/.*}, @scraper_mock)
+          subject.should_receive(:process_product)
+          subject.do_page_blocks(matching_page)
+        end
+
+        it 'handles the created product with a block if given' do
+          product_process_mock = mock('product process')
+          product_process_mock.should_receive(:call)
+          subject.register_scraper(%r{http://www\.example\.com/foo/.*}, @scraper_mock) do |product|
+            product.should be_an Article
+            product_process_mock.call
+          end
+          subject.should_not_receive(:process_product)
+          subject.do_page_blocks(matching_page)
+        end
+
       end
 
       it 'does not fail when nothing was scraped' do
