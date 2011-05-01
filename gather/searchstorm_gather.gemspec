@@ -14,11 +14,14 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.5.2}
   s.summary = %q{Crawler extension for the searchstorm search-engine front-end}
 
-  s.add_dependency(%q<searchstorm_core>, ["~> 0.1.2"])
-  s.add_dependency(%q<rails>, ["~> 3.0.5"])
-  s.add_dependency(%q<ref>, ["~> 1.0.0"])
-  s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
-  s.add_dependency(%q<anemone>, ["~> 0.5.0"])
-  s.add_dependency(%q<mongo>, ["~> 1.2.0"])
+  s.add_dependency('searchstorm_core', ["~> 0.1.2"])
+  s.add_dependency('rails', ["~> 3.0.5"])
+  s.add_dependency('ref', ["~> 1.0.0"])
+  s.add_dependency('nokogiri', ["~> 1.4.1"])
+  s.add_dependency('anemone', ["~> 0.5.0"])
+  s.add_dependency('mongo', ["~> 1.2.0"])
+  s.add_dependency('scrapi', ["~> 2.0.0"])
+  s.add_dependency('loofah', ["~> 1.0.0"])
+  s.add_dependency('htmlentities', ["~> 4.3.0"])
 end
 
