@@ -22,6 +22,7 @@ describe SearchstormGather::Scraping do
     let :matching_page do
       matching_page = mock('page with matching url')
       matching_page.stub!(:url).and_return('http://www.example.com/foo/hop')
+      matching_page.stub!(:body).and_return(Faker::Lorem.paragraph)
       matching_page
     end
 
@@ -38,6 +39,17 @@ describe SearchstormGather::Scraping do
       end
       subject.do_page_blocks(matching_page)
       subject.products_for(matching_page).should == ['product']
+    end
+
+    it 'registers new scraper for pages' do
+      article_scrape_mock = mock('article data')
+      article_attrs = {:title => Faker::Lorem.word, :summary => Faker::Lorem.paragraph, :body => Faker::Lorem.paragraph,
+                       :author => Faker::Name.name, :published_at => Date.today}
+      article_attrs.each_pair { |attr, value| article_scrape_mock.should_receive(attr).and_return(value) }
+      scraper_mock = mock('scraper')
+      scraper_mock.should_receive(:scrape).and_return(article_scrape_mock)
+      subject.register_scraper(%r{http://www\.example\.com/foo/.*}, scraper_mock)
+      subject.do_page_blocks(matching_page)
     end
   end
 
