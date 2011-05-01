@@ -28,6 +28,13 @@ group :test do
   else
     gem "ruby-debug19"
   end
+
+  #continuous testing
+  gem 'guard'
+  gem 'growl'
+  gem 'rb-fsevent'
+  gem 'guard-rspec'
+  gem 'guard-spork'
 end
 
 group :cucumber do
