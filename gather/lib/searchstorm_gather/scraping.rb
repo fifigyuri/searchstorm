@@ -43,12 +43,14 @@ module SearchstormGather
           link_s = page.url.to_s
           link_s = URI.unescape(link_s) while link_s =~ /%/
           article_scrape = scraper_class.scrape(page.body)
-          article_data = {:full_page => page.body, :url => link_s}
-          [:title, :summary, :body, :author, :published_at].each { |attr| article_data[attr] = article_scrape.send(attr) }
+          if article_scrape
+            article_data = {:full_page => page.body, :url => link_s}
+            [:title, :summary, :body, :author, :published_at].each { |attr| article_data[attr] = article_scrape.send(attr) }
 
-          article = Article.find_by_url(page.url) || Article.new
-          article.attributes = article_data
-          products_for(page) << article
+            article = Article.find_by_url(page.url) || Article.new
+            article.attributes = article_data
+            products_for(page) << article
+          end
         end
       end
     end

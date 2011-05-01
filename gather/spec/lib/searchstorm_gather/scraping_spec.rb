@@ -41,15 +41,24 @@ describe SearchstormGather::Scraping do
       subject.products_for(matching_page).should == ['product']
     end
 
-    it 'registers new scraper for pages' do
-      article_scrape_mock = mock('article data')
-      article_attrs = {:title => Faker::Lorem.word, :summary => Faker::Lorem.paragraph, :body => Faker::Lorem.paragraph,
-                       :author => Faker::Name.name, :published_at => Date.today}
-      article_attrs.each_pair { |attr, value| article_scrape_mock.should_receive(attr).and_return(value) }
-      scraper_mock = mock('scraper')
-      scraper_mock.should_receive(:scrape).and_return(article_scrape_mock)
-      subject.register_scraper(%r{http://www\.example\.com/foo/.*}, scraper_mock)
-      subject.do_page_blocks(matching_page)
+    describe 'scraper registration' do
+      it 'registers new scrapers' do
+        article_scrape_mock = mock('article data')
+        article_attrs = {:title => Faker::Lorem.word, :summary => Faker::Lorem.paragraph, :body => Faker::Lorem.paragraph,
+                         :author => Faker::Name.name, :published_at => Date.today}
+        article_attrs.each_pair { |attr, value| article_scrape_mock.should_receive(attr).and_return(value) }
+        scraper_mock = mock('scraper')
+        scraper_mock.should_receive(:scrape).and_return(article_scrape_mock)
+        subject.register_scraper(%r{http://www\.example\.com/foo/.*}, scraper_mock)
+        subject.do_page_blocks(matching_page)
+      end
+
+      it 'does not fail when nothing was scraped' do
+        scraper_mock = mock('scraper')
+        scraper_mock.should_receive(:scrape).and_return(nil)
+        subject.register_scraper(%r{http://www\.example\.com/foo/.*}, scraper_mock)
+        expect { subject.do_page_blocks(matching_page) }.should_not raise_error
+      end
     end
   end
 
