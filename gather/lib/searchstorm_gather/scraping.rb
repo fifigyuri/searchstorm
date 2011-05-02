@@ -31,9 +31,8 @@ module SearchstormGather
       @scrapping_products[key]
     end
 
-    def process_product(product)
-      fail
-      products_for(page) << article
+    def process_product(page, product)
+      products_for(page) << product
     end
 
     def gather_url(url, &condition)
@@ -55,9 +54,9 @@ module SearchstormGather
             article = Article.find_by_url(page.url) || Article.new
             article.attributes = article_data
             if product_processor
-              product_processor.yield article
+              product_processor.yield page, article
             else
-              process_product(article)
+              process_product(page, article)
             end
           end
         end
