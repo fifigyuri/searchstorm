@@ -35,6 +35,10 @@ module SearchstormGather
       products_for(page) << product
     end
 
+    def set_product_processor &product_processor
+      @product_processor = product_processor
+    end
+
     def gather_url(url, &condition)
       page = Anemone::Page.new(url, :body => open(url).read)
       do_page_blocks(page)
@@ -55,6 +59,8 @@ module SearchstormGather
             article.attributes = article_data
             if product_processor
               product_processor.yield page, article
+            elsif @product_processor
+              @product_processor.yield page, article
             else
               process_product(page, article)
             end

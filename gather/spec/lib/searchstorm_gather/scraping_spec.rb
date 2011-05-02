@@ -51,12 +51,24 @@ describe SearchstormGather::Scraping do
         @scraper_mock.should_receive(:scrape).and_return(@article_scrape_mock)
       end
 
-      it 'registers new scrapers' do
+      it 'has a default processing method for registered scrapers' do
         subject.register_scraper(%r{http://www\.example\.com/foo/.*}, @scraper_mock)
         subject.do_page_blocks(matching_page)
         articles = subject.products_for(matching_page)
         articles.should be_kind_of Array
         [:title, :summary, :body, :published_at].each { |attr| articles.first.send(attr).should == @article_scrape_mock.send(attr) }
+      end
+
+      it 'allows to define a global product processing' do
+        product_processor_mock = mock('product processor')
+        product_processor_mock.should_receive(:call).once
+        subject.set_product_processor do |page, product|
+          product_processor_mock.call
+          page.should == matching_page
+          product.should be_kind_of Article
+        end
+        subject.register_scraper(%r{http://www\.example\.com/foo/.*}, @scraper_mock)
+        subject.do_page_blocks(matching_page)
       end
 
       it 'handles the created product with a block if given' do
