@@ -9,8 +9,8 @@ describe SearchstormGather::Scraping do
     subject.crawler.should be_instance_of Anemone::Core
   end
 
-  it ( 'can store page scrapping products' ) { subject.products_for('foo').should == [] }
-  it ( 'does not store nil key for scrapping products' ) { subject.products_for(nil).should be_nil }
+  it ( 'can store page scraping products' ) { subject.products_for('foo').should == [] }
+  it ( 'does not store nil key for scraping products' ) { subject.products_for(nil).should be_nil }
 
   context 'with configured crawler' do
 
@@ -26,14 +26,14 @@ describe SearchstormGather::Scraping do
       matching_page
     end
 
-    it 'registers handler for url pattern' do
+    it 'can register handler for url pattern' do
       page_handler_mock = mock('page handler')
       page_handler_mock.should_receive(:call).once.and_return('processes object')
       subject.on_pages_like(%r{http://www\.example\.com/foo/.*}) { page_handler_mock.call }
       subject.do_page_blocks(matching_page)
     end
 
-    it 'returns a value after processing' do
+    it 'returns by default scraping product after processing' do
       subject.on_pages_like(%r{http://www\.example\.com/foo/.*}) do |page|
         subject.products_for(matching_page) << 'product'
       end
@@ -71,7 +71,7 @@ describe SearchstormGather::Scraping do
         subject.do_page_blocks(matching_page)
       end
 
-      it 'handles the created product with a block if given' do
+      it 'can handle the created product with a block' do
         product_process_mock = mock('product process')
         product_process_mock.should_receive(:call)
         subject.register_scraper(%r{http://www\.example\.com/foo/.*}, @scraper_mock) do |page, product|
