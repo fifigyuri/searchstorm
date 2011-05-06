@@ -39,7 +39,7 @@ describe SearchstormGather::CrawlerBuilder do
     end
 
     it 'returns by default scraping product after processing' do
-      subject.on_pages_like(%r{http://www\.example\.com/foo/.*}) do |page|
+      subject.crawler.on_pages_like(%r{http://www\.example\.com/foo/.*}) do |page|
         subject.products_for(matching_page) << 'product'
       end
       subject.do_page_blocks(matching_page)
@@ -119,16 +119,36 @@ PAGE
   end
 
   it 'recreates all defined scrapers as page handlers for the newly built crawler' do
+    subject.url_seed = 'http://beautifulsite.com'
     mock_crawler = mock('crawler')
     mock_recreated_crawler = mock('recreated crawler')
+
     mock_crawler.should_receive(:on_pages_like).twice
     mock_recreated_crawler.should_receive(:on_pages_like).twice
     Anemone::Core.stub!(:new).and_return(mock_crawler, mock_recreated_crawler)
-    subject.url_seed = 'http://beautifulsite.com'
+
     subject.register_scraper(%r{http://www\.greatsite\.com/.*}, Object.new)
     subject.register_scraper(%r{http://www\.newsite\.com/.*}, Object.new)
     subject.crawler.should == mock_crawler
     subject.reset_crawler
     subject.crawler.should == mock_recreated_crawler
+  end
+
+  #[:after_crawl, :focus_crawl, :on_every_page, :on_pages_like, :skip_links_like].each do |method_name|
+  [:after_crawl].each do |method_name|
+    it "records #{method_name.to_s} calls and replays it when building a crawler" do
+      subject.url_seed = 'http://beautifulsite.com'
+      mock_crawler = mock('crawler')
+      mock_recreated_crawler = mock('recreated crawler')
+
+      mock_crawler.should_receive(method_name).once
+      mock_recreated_crawler.should_receive(method_name).once
+      Anemone::Core.stub!(:new).and_return(mock_crawler, mock_recreated_crawler)
+
+      subject.send(method_name) {}
+      subject.crawler.should == mock_crawler
+      subject.reset_crawler
+      subject.crawler.should == mock_recreated_crawler
+    end
   end
 end

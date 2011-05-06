@@ -6,13 +6,17 @@ require 'open-uri'
 module SearchstormGather
 
   class CrawlerBuilder
-    delegate :do_page_blocks, :on_pages_like, :to => :crawler
+    delegate :do_page_blocks, :to => :crawler
+    RECORDED_METHODS = [:after_crawl, :focus_crawl, :on_every_page, :on_pages_like, :skip_links_like]
     attr_accessor :url_seed
 
     def initialize(seed = nil)
       reset_crawler if url_seed = seed
       @scrapping_products = Ref::SoftKeyMap.new
       @registered_scrapers = []
+      RECORDED_METHODS.each do |method_name|
+        instance_variable_set "@#{method_name}_calls".to_sym, []
+      end
     end
 
     def build
@@ -20,6 +24,11 @@ module SearchstormGather
       built_crawler = Anemone::Core.new(url_seed)
       @registered_scrapers.each do |url_pattern, scraper_class, product_processor|
         attach_scraper_to(built_crawler, url_pattern, scraper_class, &product_processor)
+      end
+      RECORDED_METHODS.each do |method_name|
+        instance_variable_get("@#{method_name}_calls".to_sym).each do |*args, block|
+          built_crawler.send(method_name, *args, &block)
+        end
       end
       built_crawler
     end
@@ -56,6 +65,13 @@ module SearchstormGather
       attach_scraper_to(crawler, url_pattern, scraper_class, &product_processor) if crawler
       @registered_scrapers << [url_pattern, scraper_class, product_processor]
       scraper_class
+    end
+
+    RECORDED_METHODS.each do |method_name|
+      define_method method_name do |*args, &block|
+        crawler.send(method_name, *args, &block) if crawler
+        instance_variable_get("@#{method_name}_calls".to_sym) << [ *args, block ]
+      end
     end
 
     private
