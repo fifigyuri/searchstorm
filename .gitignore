@@ -26,4 +26,5 @@ Gemfile.lock
 test_app
 */test/*.log
 */test/*.sqlite3.db
+Sporkfile.rb
 
