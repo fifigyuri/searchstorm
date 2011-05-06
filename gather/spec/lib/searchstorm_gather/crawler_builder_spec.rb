@@ -1,11 +1,17 @@
 require 'spec_helper'
 
-describe SearchstormGather::Scraping do
+describe SearchstormGather::CrawlerBuilder do
 
   it 'creates crawler instance only when url seed is defined' do
-    subject.crawler.should be_nil
+    subject.build.should be_nil
     subject.url_seed = 'seedsite.com'
-    subject.crawler.should_not be_nil
+    crawler = subject.build
+    crawler.should_not be_nil
+    crawler.should be_instance_of Anemone::Core
+  end
+
+  it 'can hold a built crawler instance' do
+    subject.url_seed = 'seedsite.com'
     subject.crawler.should be_instance_of Anemone::Core
   end
 
@@ -16,7 +22,6 @@ describe SearchstormGather::Scraping do
 
     before :each do
       subject.url_seed = 'example.com'
-      subject.reset_crawler
     end
 
     let :matching_page do
@@ -29,7 +34,7 @@ describe SearchstormGather::Scraping do
     it 'can register handler for url pattern' do
       page_handler_mock = mock('page handler')
       page_handler_mock.should_receive(:call).once.and_return('processes object')
-      subject.on_pages_like(%r{http://www\.example\.com/foo/.*}) { page_handler_mock.call }
+      subject.crawler.on_pages_like(%r{http://www\.example\.com/foo/.*}) { page_handler_mock.call }
       subject.do_page_blocks(matching_page)
     end
 
@@ -104,5 +109,26 @@ describe SearchstormGather::Scraping do
 PAGE
     subject.should_receive(:open).with('http://justnews.com').and_return(StringIO.new(page_body))
     subject.gather_url('http://justnews.com') { |prod| prod =~ /product/ }.should == [scraped_object]
+  end
+
+  it 'can reset the held crawler' do
+    subject.url_seed = 'http://greatsite.com'
+    held_crawler = subject.crawler
+    subject.reset_crawler
+    subject.crawler.should_not == held_crawler
+  end
+
+  it 'recreates all defined scrapers as page handlers for the newly built crawler' do
+    mock_crawler = mock('crawler')
+    mock_recreated_crawler = mock('recreated crawler')
+    mock_crawler.should_receive(:on_pages_like).twice
+    mock_recreated_crawler.should_receive(:on_pages_like).twice
+    Anemone::Core.stub!(:new).and_return(mock_crawler, mock_recreated_crawler)
+    subject.url_seed = 'http://beautifulsite.com'
+    subject.register_scraper(%r{http://www\.greatsite\.com/.*}, Object.new)
+    subject.register_scraper(%r{http://www\.newsite\.com/.*}, Object.new)
+    subject.crawler.should == mock_crawler
+    subject.reset_crawler
+    subject.crawler.should == mock_recreated_crawler
   end
 end

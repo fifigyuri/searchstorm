@@ -5,7 +5,7 @@ describe GathererController, 'page gatherer' do
 
   it 'renders scraped page' do
     Sunspot.session.stub!(:index)
-    Rails.application.scraping.should_receive(:gather_url).with('http://example.com').
+    Rails.application.crawler_builder.should_receive(:gather_url).with('http://example.com').
       and_return([Factory.build(:article, :title => 'Example Document Title')])
 
     visit gatherer_scrape_path :page => 'http://example.com'

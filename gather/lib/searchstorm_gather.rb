@@ -1,7 +1,7 @@
 #lib initialization code
 
 require 'searchstorm_core'
-require 'searchstorm_gather/scraping'
+require 'searchstorm_gather/crawler_builder'
 require 'rails'
 
 module SearchstormGather
@@ -23,9 +23,9 @@ module SearchstormGather
 
     initializer "scrappers" do |app|
       Rails.application.class.class_eval do
-        attr_accessor :scraping
+        attr_accessor :crawler_builder
       end
-      Rails.application.scraping = SearchstormGather::Scraping.new
+      Rails.application.crawler_builder = SearchstormGather::CrawlerBuilder.new
 
       scrappers_dir = "#{Rails.root}/config/scrapers"
       Dir.entries(scrappers_dir).select { |f| f =~ /^.*\.rb$/}.each do |scrapper|

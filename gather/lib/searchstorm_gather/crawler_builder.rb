@@ -1,28 +1,35 @@
-
+require 'active_support/core_ext/module/delegation'
 require 'anemone'
 require 'ref'
-require 'active_support/core_ext/module/delegation'
 require 'open-uri'
 
 module SearchstormGather
 
-  class Scraping
-    delegate :on_pages_like, :do_page_blocks, :to => :crawler
-
-    attr_accessor :crawler, :url_seed
+  class CrawlerBuilder
+    delegate :do_page_blocks, :on_pages_like, :to => :crawler
+    attr_accessor :url_seed
 
     def initialize(seed = nil)
       reset_crawler if url_seed = seed
       @scrapping_products = Ref::SoftKeyMap.new
+      @registered_scrapers = []
+    end
+
+    def build
+      return nil unless url_seed
+      built_crawler = Anemone::Core.new(url_seed)
+      @registered_scrapers.each do |url_pattern, scraper_class, product_processor|
+        attach_scraper_to(built_crawler, url_pattern, scraper_class, &product_processor)
+      end
+      built_crawler
     end
 
     def crawler
-      @crawler ||= reset_crawler
+      @crawler ||= build
     end
 
     def reset_crawler
-      return nil unless url_seed
-      @crawler = Anemone::Core.new(url_seed)
+      @crawler = nil
     end
 
     def products_for(key)
@@ -46,6 +53,14 @@ module SearchstormGather
     end
 
     def register_scraper(url_pattern, scraper_class, &product_processor)
+      attach_scraper_to(crawler, url_pattern, scraper_class, &product_processor) if crawler
+      @registered_scrapers << [url_pattern, scraper_class, product_processor]
+      scraper_class
+    end
+
+    private
+
+    def attach_scraper_to(crawler, url_pattern, scraper_class, &product_processor)
       crawler.on_pages_like(url_pattern) do |page|
         if page.url && (page.url.to_s !~ /%/)
           link_s = page.url.to_s

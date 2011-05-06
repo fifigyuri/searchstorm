@@ -35,6 +35,8 @@ group :test do
   gem 'rb-fsevent'
   gem 'guard-rspec'
   gem 'guard-spork'
+  gem 'guard-ego'
+  gem 'guard-bundler'
 end
 
 group :cucumber do
