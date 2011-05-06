@@ -12,7 +12,7 @@ namespace :searchstorm_gather do
     task :migrations do
       source = File.join(File.dirname(__FILE__), '..', '..', 'db')
       destination = File.join(Rails.root, 'db')
-      Searchstorm::FileUtilz.mirror_files(source, destination)
+      Searchstorm::FileUtilz.mirror_files(source, destination) if File.exists?(source)
     end
 
     desc "Copies all assets (NOTE: This will be obsolete with Rails 3.1)"
@@ -20,7 +20,7 @@ namespace :searchstorm_gather do
       source = File.join(File.dirname(__FILE__), '..', '..', 'public')
       destination = File.join(Rails.root, 'public')
       #puts "INFO: Mirroring assets from #{source} to #{destination}"
-      Searchstorm::FileUtilz.mirror_files(source, destination)
+      Searchstorm::FileUtilz.mirror_files(source, destination) if File.exists?(source)
     end
 
   end
