@@ -54,6 +54,13 @@ module Searchstorm
         }
       end
 
+      def replace_application_rb
+        silence_stream(STDOUT) {
+          remove_file "config/application.rb"
+          template "config/application.rb"
+        }
+      end
+
       def setup_environments
         silence_stream(STDOUT) {
           template "config/environments/cucumber.rb"
@@ -64,6 +71,13 @@ module Searchstorm
         silence_stream(STDOUT) {
           remove_file "config/database.yml"
           template "config/database.yml"
+        }
+      end
+
+      def create_sunspot_yml
+        silence_stream(STDOUT) {
+          remove_file "config/sunspot.yml"
+          template "config/sunspot.yml"
         }
       end
 
