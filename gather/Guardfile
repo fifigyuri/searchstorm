@@ -16,7 +16,7 @@ guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'cucumber' }, :rspec_env => { '
   watch('spec/spec_helper.rb')
 end
 
-guard 'rspec', :cli => '--color --format doc --drb', :version => 2 do
+guard 'rspec', :cli => '-d --color --format doc --drb', :version => 2 do
   watch('spec/spec_helper.rb')                       { "spec" }
   watch('config/routes.rb')                          { "spec/routing" }
   watch(%r{^spec/.+_spec\.rb})

@@ -25,8 +25,9 @@ describe SearchstormGather::CrawlerBuilder do
     end
 
     let :matching_page do
+      require 'uri/http'
       matching_page = mock('page with matching url')
-      matching_page.stub!(:url).and_return('http://www.example.com/foo/hop')
+      matching_page.stub!(:url).and_return(URI::HTTP.build(:host => 'www.example.com', :path => '/foo/bar'))
       matching_page.stub!(:body).and_return(Faker::Lorem.paragraph)
       matching_page
     end
@@ -48,12 +49,12 @@ describe SearchstormGather::CrawlerBuilder do
 
     context 'with scraped article' do
       before :each do
-        @article_scrape_mock = mock('article data')
-        article_attrs = {:title => Faker::Lorem.word, :summary => Faker::Lorem.paragraph, :body => Faker::Lorem.paragraph,
-                         :author => Faker::Name.name, :published_at => Date.today}
-        article_attrs.each_pair { |attr, value| @article_scrape_mock.stub!(attr).and_return(value) }
+        require 'ostruct'
+        @article_scrape = OpenStruct.new(
+          {:title => Faker::Lorem.word, :summary => Faker::Lorem.paragraph,
+           :body => Faker::Lorem.paragraph, :author => Faker::Name.name, :published_at => Date.today})
         @scraper_mock = mock('scraper')
-        @scraper_mock.should_receive(:scrape).and_return(@article_scrape_mock)
+        @scraper_mock.should_receive(:scrape).and_return(@article_scrape)
       end
 
       it 'has a default processing method for registered scrapers' do
@@ -61,7 +62,7 @@ describe SearchstormGather::CrawlerBuilder do
         subject.do_page_blocks(matching_page)
         articles = subject.products_for(matching_page)
         articles.should be_kind_of Array
-        [:title, :summary, :body, :published_at].each { |attr| articles.first.send(attr).should == @article_scrape_mock.send(attr) }
+        [:title, :summary, :body, :published_at].each { |attr| articles.first.send(attr).should == @article_scrape.send(attr) }
       end
 
       it 'allows to define a global product processing' do

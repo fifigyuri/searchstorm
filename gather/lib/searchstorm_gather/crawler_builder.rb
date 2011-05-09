@@ -86,7 +86,7 @@ module SearchstormGather
             article_data = {:full_page => page.body, :url => link_s}
             [:title, :summary, :body, :author, :published_at].each { |attr| article_data[attr] = article_scrape.send(attr) }
 
-            article = Article.find_by_url(page.url) || Article.new
+            article = Article.find_by_url(link_s) || Article.new
             article.attributes = article_data
             if product_processor
               product_processor.yield page, article
