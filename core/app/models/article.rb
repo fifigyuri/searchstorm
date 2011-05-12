@@ -7,7 +7,6 @@ class Article < ActiveRecord::Base # include Sunspot::Rails::Searchable
   @@per_page = 10
 
   before_validation :remove_illegal_characters
-  before_save :put_full_page_to_utf8
 
   alias_attribute :content, :body
 
@@ -43,11 +42,5 @@ class Article < ActiveRecord::Base # include Sunspot::Rails::Searchable
     self[:summary] = summary.tr(ugly_characters, exchange_character) unless summary.nil?
     self[:body] = body.tr(ugly_characters, exchange_character) unless body.nil?
     self[:url] = url.tr(ugly_characters, '') unless url.nil?
-  end
-
-  def put_full_page_to_utf8
-    unless full_page.nil?
-      self[:full_page] = Newscrapi::Encoding::get_html_doc_with_changed_encoding(full_page, 'utf-8').to_s
-    end
   end
 end
