@@ -152,4 +152,12 @@ PAGE
       subject.crawler.should == mock_recreated_crawler
     end
   end
+
+  it 'can hold options for the crawler initialization' do
+    subject.url_seed = 'seedsite.com'
+    subject.options = {:depth => 1}
+    mock_crawler = mock('crawler')
+    Anemone::Core.should_receive(:new).with('seedsite.com', {:depth => 1}).and_return(mock_crawler)
+    subject.build.should == mock_crawler
+  end
 end

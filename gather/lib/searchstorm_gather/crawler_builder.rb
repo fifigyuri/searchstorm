@@ -8,7 +8,7 @@ module SearchstormGather
   class CrawlerBuilder
     delegate :do_page_blocks, :to => :crawler
     RECORDED_METHODS = [:after_crawl, :focus_crawl, :on_every_page, :on_pages_like, :skip_links_like]
-    attr_accessor :url_seed
+    attr_accessor :url_seed, :options
 
     def initialize(seed = nil)
       reset_crawler if url_seed = seed
@@ -19,9 +19,10 @@ module SearchstormGather
       end
     end
 
+    #FIXME: if url_seed is not set, throw an exception
     def build
       return nil unless url_seed
-      built_crawler = Anemone::Core.new(url_seed)
+      built_crawler = Anemone::Core.new(url_seed, options)
       @registered_scrapers.each do |url_pattern, scraper_class, product_processor|
         attach_scraper_to(built_crawler, url_pattern, scraper_class, &product_processor)
       end
